@@ -1,0 +1,142 @@
+{
+    "title": "Managed Streaming for Kafka",
+    "description": "The operations for managing an Amazon MSK cluster.",
+    "docsUrl": "https://aws.amazon.com/kafka/",
+    "url": "https://api.apis.guru/v2/specs/amazonaws.com/kafka/2018-11-14/swagger.json",
+    "envVars": {},
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://kafka.amazonaws.com/",
+                    "http://kafka.amazonaws.com/",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "hmac": {
+                "label": "Authorization (hmac)",
+                "viewClass": "TextFieldView",
+                "note": "Amazon Signature authorization v4"
+            }
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "ListClusters": {
+            "main": "./lib/actions/ListClusters.js",
+            "title": "Returns a list of clusters in an account.",
+            "description": "Returns a list of clusters in an account.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ListClusters.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "CreateCluster": {
+            "main": "./lib/actions/CreateCluster.js",
+            "title": "Creates a new MSK cluster.",
+            "description": "Creates a new MSK cluster.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/CreateCluster.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "DeleteCluster": {
+            "main": "./lib/actions/DeleteCluster.js",
+            "title": "Deletes the MSK cluster specified by the Amazon Resource Name (ARN) in the request.",
+            "description": "Deletes the MSK cluster specified by the Amazon Resource Name (ARN) in the request.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/DeleteCluster.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "DescribeCluster": {
+            "main": "./lib/actions/DescribeCluster.js",
+            "title": "Returns a description of the MSK cluster whose Amazon Resource Name (ARN) is specified in the request.",
+            "description": "Returns a description of the MSK cluster whose Amazon Resource Name (ARN) is specified in the request.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/DescribeCluster.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "GetBootstrapBrokers": {
+            "main": "./lib/actions/GetBootstrapBrokers.js",
+            "title": "A list of brokers that a client application can use to bootstrap.",
+            "description": "A list of brokers that a client application can use to bootstrap.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/GetBootstrapBrokers.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ListNodes": {
+            "main": "./lib/actions/ListNodes.js",
+            "title": "Returns a list of the broker nodes in the cluster.",
+            "description": "Returns a list of the broker nodes in the cluster.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ListNodes.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}

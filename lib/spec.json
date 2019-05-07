@@ -1,0 +1,2791 @@
+{
+    "openapi": "3.0.0",
+    "servers": [
+        {
+            "url": "https://kafka.amazonaws.com/"
+        },
+        {
+            "url": "http://kafka.amazonaws.com/"
+        }
+    ],
+    "info": {
+        "contact": {
+            "email": "mike.ralphson@gmail.com",
+            "name": "Mike Ralphson",
+            "url": "https://github.com/mermade/aws2openapi",
+            "x-twitter": "PermittedSoc"
+        },
+        "description": "The operations for managing an Amazon MSK cluster.",
+        "license": {
+            "name": "Apache 2.0 License",
+            "url": "http://www.apache.org/licenses/"
+        },
+        "termsOfService": "https://aws.amazon.com/service-terms/",
+        "title": "Managed Streaming for Kafka",
+        "version": "2018-11-14",
+        "x-apiClientRegistration": {
+            "url": "https://portal.aws.amazon.com/gp/aws/developer/registration/index.html?nc2=h_ct"
+        },
+        "x-apisguru-categories": [
+            "cloud"
+        ],
+        "x-logo": {
+            "backgroundColor": "#FFFFFF",
+            "url": "https://api.apis.guru/v2/cache/logo/https_twitter.com_awscloud_profile_image.jpeg"
+        },
+        "x-origin": [
+            {
+                "contentType": "application/json",
+                "converter": {
+                    "url": "https://github.com/mermade/aws2openapi",
+                    "version": "1.0.0"
+                },
+                "url": "https://raw.githubusercontent.com/aws/aws-sdk-js/master/apis/kafka-2018-11-14.normal.json",
+                "x-apisguru-direct": true
+            }
+        ],
+        "x-preferred": true,
+        "x-providerName": "amazonaws.com",
+        "x-release": "v4",
+        "x-serviceName": "kafka"
+    },
+    "externalDocs": {
+        "description": "Amazon Web Services documentation",
+        "url": "https://aws.amazon.com/kafka/"
+    },
+    "security": [
+        {
+            "hmac": []
+        }
+    ],
+    "paths": {
+        "/v1/clusters": {
+            "get": {
+                "description": "Returns a list of clusters in an account.",
+                "operationId": "ListClusters",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "ClusterInfoList": {
+                                            "description": "Information on each of the MSK clusters in the response.",
+                                            "items": {
+                                                "description": "Returns information about a cluster.",
+                                                "properties": {
+                                                    "BrokerNodeGroupInfo": {
+                                                        "description": "Information about the broker nodes.",
+                                                        "properties": {
+                                                            "BrokerAZDistribution": {
+                                                                "description": "The distribution of broker nodes across Availability Zones.",
+                                                                "enum": [
+                                                                    "DEFAULT"
+                                                                ],
+                                                                "type": "string"
+                                                            },
+                                                            "ClientSubnets": {
+                                                                "description": "The list of subnets to connect to in the client virtual private cloud (VPC). AWS creates elastic network interfaces inside these subnets. Client applications use elastic network interfaces to produce and consume data. Client subnets can't be in Availability Zone us-east-1e.",
+                                                                "items": {
+                                                                    "type": "string"
+                                                                },
+                                                                "type": "array"
+                                                            },
+                                                            "InstanceType": {
+                                                                "description": "The type of Amazon EC2 instances to use for Kafka brokers. The following instance types are allowed: kafka.m5.large, kafka.m5.xlarge, kafka.m5.2xlarge,\nkafka.m5.4xlarge, kafka.m5.12xlarge, and kafka.m5.24xlarge.",
+                                                                "maxLength": 32,
+                                                                "minLength": 5,
+                                                                "type": "string"
+                                                            },
+                                                            "SecurityGroups": {
+                                                                "description": "The AWS security groups to associate with the elastic network interfaces in order to specify who can connect to and communicate with the Amazon MSK cluster.",
+                                                                "items": {
+                                                                    "type": "string"
+                                                                },
+                                                                "type": "array"
+                                                            },
+                                                            "StorageInfo": {
+                                                                "description": "Contains information about storage volumes attached to MSK broker nodes.",
+                                                                "properties": {
+                                                                    "EbsStorageInfo": {
+                                                                        "description": "EBS volume information.",
+                                                                        "properties": {
+                                                                            "VolumeSize": {
+                                                                                "description": "The size in GiB of the EBS volume for the data drive on each broker node.",
+                                                                                "maximum": 16384,
+                                                                                "minimum": 1,
+                                                                                "type": "integer"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "ClientSubnets",
+                                                            "InstanceType"
+                                                        ],
+                                                        "type": "object"
+                                                    },
+                                                    "ClusterArn": {
+                                                        "description": "The Amazon Resource Name (ARN) that uniquely identifies the cluster.",
+                                                        "type": "string"
+                                                    },
+                                                    "ClusterName": {
+                                                        "description": "The name of the cluster.",
+                                                        "type": "string"
+                                                    },
+                                                    "CreationTime": {
+                                                        "description": "The time when the cluster was created.",
+                                                        "format": "date-time",
+                                                        "type": "string"
+                                                    },
+                                                    "CurrentBrokerSoftwareInfo": {
+                                                        "description": "Information about the version of software currently deployed on the Kafka brokers in the cluster.",
+                                                        "properties": {
+                                                            "ConfigurationArn": {
+                                                                "description": "The Amazon Resource Name (ARN) of the configuration used for the cluster.",
+                                                                "type": "string"
+                                                            },
+                                                            "ConfigurationRevision": {
+                                                                "description": "The revision of the configuration to use.",
+                                                                "type": "string"
+                                                            },
+                                                            "KafkaVersion": {
+                                                                "description": "The version of Apache Kafka.",
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "CurrentVersion": {
+                                                        "description": "The current version of the MSK cluster.",
+                                                        "type": "string"
+                                                    },
+                                                    "EncryptionInfo": {
+                                                        "description": "Includes all encryption-related information.",
+                                                        "properties": {
+                                                            "EncryptionAtRest": {
+                                                                "description": "The data volume encryption details.",
+                                                                "properties": {
+                                                                    "DataVolumeKMSKeyId": {
+                                                                        "description": "The AWS KMS key used for data encryption.",
+                                                                        "type": "string"
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "DataVolumeKMSKeyId"
+                                                                ],
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "EnhancedMonitoring": {
+                                                        "description": "Specifies which metrics are gathered for the MSK cluster. This property has three possible values: DEFAULT, PER_BROKER, and PER_TOPIC_PER_BROKER.",
+                                                        "enum": [
+                                                            "DEFAULT",
+                                                            "PER_BROKER",
+                                                            "PER_TOPIC_PER_BROKER"
+                                                        ],
+                                                        "type": "string"
+                                                    },
+                                                    "NumberOfBrokerNodes": {
+                                                        "description": "The number of Kafka broker nodes in the cluster.",
+                                                        "type": "integer"
+                                                    },
+                                                    "State": {
+                                                        "description": "The state of the cluster. The possible states are CREATING, ACTIVE, and FAILED.",
+                                                        "enum": [
+                                                            "ACTIVE",
+                                                            "CREATING",
+                                                            "DELETING",
+                                                            "FAILED"
+                                                        ],
+                                                        "type": "string"
+                                                    },
+                                                    "ZookeeperConnectString": {
+                                                        "description": "The connection string to use to connect to the Apache ZooKeeper cluster.",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        },
+                                        "NextToken": {
+                                            "description": "The paginated results marker. When the result of a ListClusters operation is truncated, the call returns NextToken in the response. \n To get another batch of clusters, provide this token in your next request.",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "480": {
+                        "description": "BadRequestException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "481": {
+                        "description": "InternalServerErrorException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "482": {
+                        "description": "UnauthorizedException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "483": {
+                        "description": "ForbiddenException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {},
+                                "type": "object"
+                            }
+                        }
+                    },
+                    "required": true
+                }
+            },
+            "parameters": [
+                {
+                    "in": "query",
+                    "name": "Action",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "query",
+                    "name": "Version",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Content-Sha256",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Date",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Algorithm",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Credential",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Security-Token",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Signature",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-SignedHeaders",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "post": {
+                "description": "Creates a new MSK cluster.",
+                "operationId": "CreateCluster",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "ClusterArn": {
+                                            "description": "The Amazon Resource Name (ARN) of the cluster.",
+                                            "type": "string"
+                                        },
+                                        "ClusterName": {
+                                            "description": "The name of the MSK cluster.",
+                                            "type": "string"
+                                        },
+                                        "State": {
+                                            "description": "The state of the cluster. The possible states are CREATING, ACTIVE, and FAILED.",
+                                            "enum": [
+                                                "ACTIVE",
+                                                "CREATING",
+                                                "DELETING",
+                                                "FAILED"
+                                            ],
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "480": {
+                        "description": "BadRequestException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "481": {
+                        "description": "InternalServerErrorException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "482": {
+                        "description": "UnauthorizedException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "483": {
+                        "description": "ForbiddenException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "484": {
+                        "description": "ServiceUnavailableException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "485": {
+                        "description": "TooManyRequestsException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "486": {
+                        "description": "ConflictException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "BrokerNodeGroupInfo": {
+                                        "description": "Information about the broker nodes in the cluster.",
+                                        "properties": {
+                                            "BrokerAZDistribution": {
+                                                "description": "The distribution of broker nodes across Availability Zones.",
+                                                "enum": [
+                                                    "DEFAULT"
+                                                ],
+                                                "type": "string"
+                                            },
+                                            "ClientSubnets": {
+                                                "description": "The list of subnets to connect to in the client virtual private cloud (VPC). AWS creates elastic network interfaces inside these subnets. Client applications use elastic network interfaces to produce and consume data. Client subnets can't be in Availability Zone us-east-1e.",
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "array"
+                                            },
+                                            "InstanceType": {
+                                                "description": "The type of Amazon EC2 instances to use for Kafka brokers. The following instance types are allowed: kafka.m5.large, kafka.m5.xlarge, kafka.m5.2xlarge,\nkafka.m5.4xlarge, kafka.m5.12xlarge, and kafka.m5.24xlarge.",
+                                                "maxLength": 32,
+                                                "minLength": 5,
+                                                "type": "string"
+                                            },
+                                            "SecurityGroups": {
+                                                "description": "The AWS security groups to associate with the elastic network interfaces in order to specify who can connect to and communicate with the Amazon MSK cluster.",
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "array"
+                                            },
+                                            "StorageInfo": {
+                                                "description": "Contains information about storage volumes attached to MSK broker nodes.",
+                                                "properties": {
+                                                    "EbsStorageInfo": {
+                                                        "description": "EBS volume information.",
+                                                        "properties": {
+                                                            "VolumeSize": {
+                                                                "description": "The size in GiB of the EBS volume for the data drive on each broker node.",
+                                                                "maximum": 16384,
+                                                                "minimum": 1,
+                                                                "type": "integer"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "required": [
+                                            "ClientSubnets",
+                                            "InstanceType"
+                                        ],
+                                        "type": "object"
+                                    },
+                                    "ClusterName": {
+                                        "description": "The name of the cluster.",
+                                        "maxLength": 64,
+                                        "minLength": 1,
+                                        "type": "string"
+                                    },
+                                    "EncryptionInfo": {
+                                        "description": "Includes all encryption-related information.",
+                                        "properties": {
+                                            "EncryptionAtRest": {
+                                                "description": "The data volume encryption details.",
+                                                "properties": {
+                                                    "DataVolumeKMSKeyId": {
+                                                        "description": "The AWS KMS key used for data encryption.",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "DataVolumeKMSKeyId"
+                                                ],
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "EnhancedMonitoring": {
+                                        "description": "Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER, and PER_TOPIC_PER_BROKER.",
+                                        "enum": [
+                                            "DEFAULT",
+                                            "PER_BROKER",
+                                            "PER_TOPIC_PER_BROKER"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "KafkaVersion": {
+                                        "description": "The version of Apache Kafka.",
+                                        "maxLength": 128,
+                                        "minLength": 1,
+                                        "type": "string"
+                                    },
+                                    "NumberOfBrokerNodes": {
+                                        "description": "The number of Kafka broker nodes in the Amazon MSK cluster.",
+                                        "maximum": 15,
+                                        "minimum": 1,
+                                        "type": "integer"
+                                    }
+                                },
+                                "required": [
+                                    "BrokerNodeGroupInfo",
+                                    "KafkaVersion",
+                                    "NumberOfBrokerNodes",
+                                    "ClusterName"
+                                ],
+                                "type": "object"
+                            }
+                        }
+                    },
+                    "required": true
+                }
+            }
+        },
+        "/v1/clusters/{clusterArn}": {
+            "delete": {
+                "description": "Deletes the MSK cluster specified by the Amazon Resource Name (ARN) in the request.",
+                "operationId": "DeleteCluster",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "clusterArn",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "ClusterArn": {
+                                            "description": "The Amazon Resource Name (ARN) of the cluster.",
+                                            "type": "string"
+                                        },
+                                        "State": {
+                                            "description": "The state of the cluster. The possible states are CREATING, ACTIVE, and FAILED.",
+                                            "enum": [
+                                                "ACTIVE",
+                                                "CREATING",
+                                                "DELETING",
+                                                "FAILED"
+                                            ],
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "480": {
+                        "description": "NotFoundException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "481": {
+                        "description": "BadRequestException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "482": {
+                        "description": "InternalServerErrorException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "483": {
+                        "description": "ForbiddenException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {},
+                                "type": "object"
+                            }
+                        }
+                    },
+                    "required": true
+                }
+            },
+            "get": {
+                "description": "Returns a description of the MSK cluster whose Amazon Resource Name (ARN) is specified in the request.",
+                "operationId": "DescribeCluster",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "clusterArn",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "ClusterInfo": {
+                                            "description": "The cluster information.",
+                                            "properties": {
+                                                "BrokerNodeGroupInfo": {
+                                                    "description": "Information about the broker nodes.",
+                                                    "properties": {
+                                                        "BrokerAZDistribution": {
+                                                            "description": "The distribution of broker nodes across Availability Zones.",
+                                                            "enum": [
+                                                                "DEFAULT"
+                                                            ],
+                                                            "type": "string"
+                                                        },
+                                                        "ClientSubnets": {
+                                                            "description": "The list of subnets to connect to in the client virtual private cloud (VPC). AWS creates elastic network interfaces inside these subnets. Client applications use elastic network interfaces to produce and consume data. Client subnets can't be in Availability Zone us-east-1e.",
+                                                            "items": {
+                                                                "type": "string"
+                                                            },
+                                                            "type": "array"
+                                                        },
+                                                        "InstanceType": {
+                                                            "description": "The type of Amazon EC2 instances to use for Kafka brokers. The following instance types are allowed: kafka.m5.large, kafka.m5.xlarge, kafka.m5.2xlarge,\nkafka.m5.4xlarge, kafka.m5.12xlarge, and kafka.m5.24xlarge.",
+                                                            "maxLength": 32,
+                                                            "minLength": 5,
+                                                            "type": "string"
+                                                        },
+                                                        "SecurityGroups": {
+                                                            "description": "The AWS security groups to associate with the elastic network interfaces in order to specify who can connect to and communicate with the Amazon MSK cluster.",
+                                                            "items": {
+                                                                "type": "string"
+                                                            },
+                                                            "type": "array"
+                                                        },
+                                                        "StorageInfo": {
+                                                            "description": "Contains information about storage volumes attached to MSK broker nodes.",
+                                                            "properties": {
+                                                                "EbsStorageInfo": {
+                                                                    "description": "EBS volume information.",
+                                                                    "properties": {
+                                                                        "VolumeSize": {
+                                                                            "description": "The size in GiB of the EBS volume for the data drive on each broker node.",
+                                                                            "maximum": 16384,
+                                                                            "minimum": 1,
+                                                                            "type": "integer"
+                                                                        }
+                                                                    },
+                                                                    "type": "object"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "ClientSubnets",
+                                                        "InstanceType"
+                                                    ],
+                                                    "type": "object"
+                                                },
+                                                "ClusterArn": {
+                                                    "description": "The Amazon Resource Name (ARN) that uniquely identifies the cluster.",
+                                                    "type": "string"
+                                                },
+                                                "ClusterName": {
+                                                    "description": "The name of the cluster.",
+                                                    "type": "string"
+                                                },
+                                                "CreationTime": {
+                                                    "description": "The time when the cluster was created.",
+                                                    "format": "date-time",
+                                                    "type": "string"
+                                                },
+                                                "CurrentBrokerSoftwareInfo": {
+                                                    "description": "Information about the version of software currently deployed on the Kafka brokers in the cluster.",
+                                                    "properties": {
+                                                        "ConfigurationArn": {
+                                                            "description": "The Amazon Resource Name (ARN) of the configuration used for the cluster.",
+                                                            "type": "string"
+                                                        },
+                                                        "ConfigurationRevision": {
+                                                            "description": "The revision of the configuration to use.",
+                                                            "type": "string"
+                                                        },
+                                                        "KafkaVersion": {
+                                                            "description": "The version of Apache Kafka.",
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "CurrentVersion": {
+                                                    "description": "The current version of the MSK cluster.",
+                                                    "type": "string"
+                                                },
+                                                "EncryptionInfo": {
+                                                    "description": "Includes all encryption-related information.",
+                                                    "properties": {
+                                                        "EncryptionAtRest": {
+                                                            "description": "The data volume encryption details.",
+                                                            "properties": {
+                                                                "DataVolumeKMSKeyId": {
+                                                                    "description": "The AWS KMS key used for data encryption.",
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "required": [
+                                                                "DataVolumeKMSKeyId"
+                                                            ],
+                                                            "type": "object"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "EnhancedMonitoring": {
+                                                    "description": "Specifies which metrics are gathered for the MSK cluster. This property has three possible values: DEFAULT, PER_BROKER, and PER_TOPIC_PER_BROKER.",
+                                                    "enum": [
+                                                        "DEFAULT",
+                                                        "PER_BROKER",
+                                                        "PER_TOPIC_PER_BROKER"
+                                                    ],
+                                                    "type": "string"
+                                                },
+                                                "NumberOfBrokerNodes": {
+                                                    "description": "The number of Kafka broker nodes in the cluster.",
+                                                    "type": "integer"
+                                                },
+                                                "State": {
+                                                    "description": "The state of the cluster. The possible states are CREATING, ACTIVE, and FAILED.",
+                                                    "enum": [
+                                                        "ACTIVE",
+                                                        "CREATING",
+                                                        "DELETING",
+                                                        "FAILED"
+                                                    ],
+                                                    "type": "string"
+                                                },
+                                                "ZookeeperConnectString": {
+                                                    "description": "The connection string to use to connect to the Apache ZooKeeper cluster.",
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "480": {
+                        "description": "NotFoundException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "481": {
+                        "description": "BadRequestException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "482": {
+                        "description": "UnauthorizedException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "483": {
+                        "description": "InternalServerErrorException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "484": {
+                        "description": "ForbiddenException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {},
+                                "type": "object"
+                            }
+                        }
+                    },
+                    "required": true
+                }
+            },
+            "parameters": [
+                {
+                    "in": "query",
+                    "name": "Action",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "query",
+                    "name": "Version",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Content-Sha256",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Date",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Algorithm",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Credential",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Security-Token",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Signature",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-SignedHeaders",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "/v1/clusters/{clusterArn}/bootstrap-brokers": {
+            "get": {
+                "description": "A list of brokers that a client application can use to bootstrap.",
+                "operationId": "GetBootstrapBrokers",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "clusterArn",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "BootstrapBrokerString": {
+                                            "description": "A string containing one or more hostname:port pairs.",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "480": {
+                        "description": "BadRequestException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "481": {
+                        "description": "UnauthorizedException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "482": {
+                        "description": "InternalServerErrorException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "483": {
+                        "description": "ConflictException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "484": {
+                        "description": "ForbiddenException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {},
+                                "type": "object"
+                            }
+                        }
+                    },
+                    "required": true
+                }
+            },
+            "parameters": [
+                {
+                    "in": "query",
+                    "name": "Action",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "query",
+                    "name": "Version",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Content-Sha256",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Date",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Algorithm",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Credential",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Security-Token",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Signature",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-SignedHeaders",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "/v1/clusters/{clusterArn}/nodes": {
+            "get": {
+                "description": "Returns a list of the broker nodes in the cluster.",
+                "operationId": "ListNodes",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "clusterArn",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "NextToken": {
+                                            "description": "The paginated results marker. When the result of a ListNodes operation is truncated, the call returns NextToken in the response. \n To get another batch of nodes, provide this token in your next request.",
+                                            "type": "string"
+                                        },
+                                        "NodeInfoList": {
+                                            "description": "List containing a NodeInfo object.",
+                                            "items": {
+                                                "description": "The node information object.",
+                                                "properties": {
+                                                    "AddedToClusterTime": {
+                                                        "description": "The start time.",
+                                                        "type": "string"
+                                                    },
+                                                    "BrokerNodeInfo": {
+                                                        "description": "The broker node info.",
+                                                        "properties": {
+                                                            "AttachedENIId": {
+                                                                "description": "The attached elastic network interface of the broker.",
+                                                                "type": "string"
+                                                            },
+                                                            "BrokerId": {
+                                                                "description": "The ID of the broker.",
+                                                                "format": "double",
+                                                                "type": "number"
+                                                            },
+                                                            "ClientSubnet": {
+                                                                "description": "The client subnet to which this broker node belongs.",
+                                                                "type": "string"
+                                                            },
+                                                            "ClientVpcIpAddress": {
+                                                                "description": "The virtual private cloud (VPC) of the client.",
+                                                                "type": "string"
+                                                            },
+                                                            "CurrentBrokerSoftwareInfo": {
+                                                                "description": "Information about the version of software currently deployed on the Kafka brokers in the cluster.",
+                                                                "properties": {
+                                                                    "ConfigurationArn": {
+                                                                        "description": "The Amazon Resource Name (ARN) of the configuration used for the cluster.",
+                                                                        "type": "string"
+                                                                    },
+                                                                    "ConfigurationRevision": {
+                                                                        "description": "The revision of the configuration to use.",
+                                                                        "type": "string"
+                                                                    },
+                                                                    "KafkaVersion": {
+                                                                        "description": "The version of Apache Kafka.",
+                                                                        "type": "string"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "InstanceType": {
+                                                        "description": "The instance type.",
+                                                        "type": "string"
+                                                    },
+                                                    "NodeARN": {
+                                                        "description": "The Amazon Resource Name (ARN) of the node.",
+                                                        "type": "string"
+                                                    },
+                                                    "NodeType": {
+                                                        "description": "The node type.",
+                                                        "enum": [
+                                                            "BROKER"
+                                                        ],
+                                                        "type": "string"
+                                                    },
+                                                    "ZookeeperNodeInfo": {
+                                                        "description": "The ZookeeperNodeInfo.",
+                                                        "properties": {
+                                                            "AttachedENIId": {
+                                                                "description": "The attached elastic network interface of the broker.",
+                                                                "type": "string"
+                                                            },
+                                                            "ClientVpcIpAddress": {
+                                                                "description": "The virtual private cloud (VPC) IP address of the client.",
+                                                                "type": "string"
+                                                            },
+                                                            "ZookeeperId": {
+                                                                "description": "The role-specific ID for Zookeeper.",
+                                                                "format": "double",
+                                                                "type": "number"
+                                                            },
+                                                            "ZookeeperVersion": {
+                                                                "description": "The version of Zookeeper.",
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "480": {
+                        "description": "NotFoundException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "481": {
+                        "description": "BadRequestException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "482": {
+                        "description": "InternalServerErrorException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "483": {
+                        "description": "ForbiddenException",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {},
+                                "type": "object"
+                            }
+                        }
+                    },
+                    "required": true
+                }
+            },
+            "parameters": [
+                {
+                    "in": "query",
+                    "name": "Action",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "query",
+                    "name": "Version",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Content-Sha256",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Date",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Algorithm",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Credential",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Security-Token",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-Signature",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "in": "header",
+                    "name": "X-Amz-SignedHeaders",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        }
+    },
+    "components": {
+        "schemas": {
+            "BadRequestException": {},
+            "BrokerAZDistribution": {
+                "description": "The distribution of broker nodes across Availability Zones. By default, broker nodes are distributed among three Availability Zones. Currently, the only supported value is DEFAULT. You can either specify this value explicitly or leave it out.",
+                "enum": [
+                    "DEFAULT"
+                ],
+                "type": "string"
+            },
+            "BrokerNodeGroupInfo": {
+                "description": "Describes the setup to be used for Kafka broker nodes in the cluster.",
+                "properties": {
+                    "BrokerAZDistribution": {
+                        "description": "The distribution of broker nodes across Availability Zones.",
+                        "enum": [
+                            "DEFAULT"
+                        ],
+                        "type": "string"
+                    },
+                    "ClientSubnets": {
+                        "description": "The list of subnets to connect to in the client virtual private cloud (VPC). AWS creates elastic network interfaces inside these subnets. Client applications use elastic network interfaces to produce and consume data. Client subnets can't be in Availability Zone us-east-1e.",
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "InstanceType": {
+                        "description": "The type of Amazon EC2 instances to use for Kafka brokers. The following instance types are allowed: kafka.m5.large, kafka.m5.xlarge, kafka.m5.2xlarge,\nkafka.m5.4xlarge, kafka.m5.12xlarge, and kafka.m5.24xlarge.",
+                        "maxLength": 32,
+                        "minLength": 5,
+                        "type": "string"
+                    },
+                    "SecurityGroups": {
+                        "description": "The AWS security groups to associate with the elastic network interfaces in order to specify who can connect to and communicate with the Amazon MSK cluster.",
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "StorageInfo": {
+                        "description": "Contains information about storage volumes attached to MSK broker nodes.",
+                        "properties": {
+                            "EbsStorageInfo": {
+                                "description": "EBS volume information.",
+                                "properties": {
+                                    "VolumeSize": {
+                                        "description": "The size in GiB of the EBS volume for the data drive on each broker node.",
+                                        "maximum": 16384,
+                                        "minimum": 1,
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "required": [
+                    "ClientSubnets",
+                    "InstanceType"
+                ],
+                "type": "object"
+            },
+            "BrokerNodeInfo": {
+                "description": "BrokerNodeInfo",
+                "properties": {
+                    "AttachedENIId": {
+                        "description": "The attached elastic network interface of the broker.",
+                        "type": "string"
+                    },
+                    "BrokerId": {
+                        "description": "The ID of the broker.",
+                        "format": "double",
+                        "type": "number"
+                    },
+                    "ClientSubnet": {
+                        "description": "The client subnet to which this broker node belongs.",
+                        "type": "string"
+                    },
+                    "ClientVpcIpAddress": {
+                        "description": "The virtual private cloud (VPC) of the client.",
+                        "type": "string"
+                    },
+                    "CurrentBrokerSoftwareInfo": {
+                        "description": "Information about the version of software currently deployed on the Kafka brokers in the cluster.",
+                        "properties": {
+                            "ConfigurationArn": {
+                                "description": "The Amazon Resource Name (ARN) of the configuration used for the cluster.",
+                                "type": "string"
+                            },
+                            "ConfigurationRevision": {
+                                "description": "The revision of the configuration to use.",
+                                "type": "string"
+                            },
+                            "KafkaVersion": {
+                                "description": "The version of Apache Kafka.",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "BrokerSoftwareInfo": {
+                "description": "Information about the current software installed on the cluster.",
+                "properties": {
+                    "ConfigurationArn": {
+                        "description": "The Amazon Resource Name (ARN) of the configuration used for the cluster.",
+                        "type": "string"
+                    },
+                    "ConfigurationRevision": {
+                        "description": "The revision of the configuration to use.",
+                        "type": "string"
+                    },
+                    "KafkaVersion": {
+                        "description": "The version of Apache Kafka.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ClusterInfo": {
+                "description": "Returns information about a cluster.",
+                "properties": {
+                    "BrokerNodeGroupInfo": {
+                        "description": "Information about the broker nodes.",
+                        "properties": {
+                            "BrokerAZDistribution": {
+                                "description": "The distribution of broker nodes across Availability Zones.",
+                                "enum": [
+                                    "DEFAULT"
+                                ],
+                                "type": "string"
+                            },
+                            "ClientSubnets": {
+                                "description": "The list of subnets to connect to in the client virtual private cloud (VPC). AWS creates elastic network interfaces inside these subnets. Client applications use elastic network interfaces to produce and consume data. Client subnets can't be in Availability Zone us-east-1e.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "InstanceType": {
+                                "description": "The type of Amazon EC2 instances to use for Kafka brokers. The following instance types are allowed: kafka.m5.large, kafka.m5.xlarge, kafka.m5.2xlarge,\nkafka.m5.4xlarge, kafka.m5.12xlarge, and kafka.m5.24xlarge.",
+                                "maxLength": 32,
+                                "minLength": 5,
+                                "type": "string"
+                            },
+                            "SecurityGroups": {
+                                "description": "The AWS security groups to associate with the elastic network interfaces in order to specify who can connect to and communicate with the Amazon MSK cluster.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "StorageInfo": {
+                                "description": "Contains information about storage volumes attached to MSK broker nodes.",
+                                "properties": {
+                                    "EbsStorageInfo": {
+                                        "description": "EBS volume information.",
+                                        "properties": {
+                                            "VolumeSize": {
+                                                "description": "The size in GiB of the EBS volume for the data drive on each broker node.",
+                                                "maximum": 16384,
+                                                "minimum": 1,
+                                                "type": "integer"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "required": [
+                            "ClientSubnets",
+                            "InstanceType"
+                        ],
+                        "type": "object"
+                    },
+                    "ClusterArn": {
+                        "description": "The Amazon Resource Name (ARN) that uniquely identifies the cluster.",
+                        "type": "string"
+                    },
+                    "ClusterName": {
+                        "description": "The name of the cluster.",
+                        "type": "string"
+                    },
+                    "CreationTime": {
+                        "description": "The time when the cluster was created.",
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "CurrentBrokerSoftwareInfo": {
+                        "description": "Information about the version of software currently deployed on the Kafka brokers in the cluster.",
+                        "properties": {
+                            "ConfigurationArn": {
+                                "description": "The Amazon Resource Name (ARN) of the configuration used for the cluster.",
+                                "type": "string"
+                            },
+                            "ConfigurationRevision": {
+                                "description": "The revision of the configuration to use.",
+                                "type": "string"
+                            },
+                            "KafkaVersion": {
+                                "description": "The version of Apache Kafka.",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "CurrentVersion": {
+                        "description": "The current version of the MSK cluster.",
+                        "type": "string"
+                    },
+                    "EncryptionInfo": {
+                        "description": "Includes all encryption-related information.",
+                        "properties": {
+                            "EncryptionAtRest": {
+                                "description": "The data volume encryption details.",
+                                "properties": {
+                                    "DataVolumeKMSKeyId": {
+                                        "description": "The AWS KMS key used for data encryption.",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "DataVolumeKMSKeyId"
+                                ],
+                                "type": "object"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "EnhancedMonitoring": {
+                        "description": "Specifies which metrics are gathered for the MSK cluster. This property has three possible values: DEFAULT, PER_BROKER, and PER_TOPIC_PER_BROKER.",
+                        "enum": [
+                            "DEFAULT",
+                            "PER_BROKER",
+                            "PER_TOPIC_PER_BROKER"
+                        ],
+                        "type": "string"
+                    },
+                    "NumberOfBrokerNodes": {
+                        "description": "The number of Kafka broker nodes in the cluster.",
+                        "type": "integer"
+                    },
+                    "State": {
+                        "description": "The state of the cluster. The possible states are CREATING, ACTIVE, and FAILED.",
+                        "enum": [
+                            "ACTIVE",
+                            "CREATING",
+                            "DELETING",
+                            "FAILED"
+                        ],
+                        "type": "string"
+                    },
+                    "ZookeeperConnectString": {
+                        "description": "The connection string to use to connect to the Apache ZooKeeper cluster.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ClusterState": {
+                "description": "The state of a Kafka cluster.",
+                "enum": [
+                    "ACTIVE",
+                    "CREATING",
+                    "DELETING",
+                    "FAILED"
+                ],
+                "type": "string"
+            },
+            "ConflictException": {},
+            "CreateClusterRequest": {
+                "properties": {
+                    "BrokerNodeGroupInfo": {
+                        "description": "Information about the broker nodes in the cluster.",
+                        "properties": {
+                            "BrokerAZDistribution": {
+                                "description": "The distribution of broker nodes across Availability Zones.",
+                                "enum": [
+                                    "DEFAULT"
+                                ],
+                                "type": "string"
+                            },
+                            "ClientSubnets": {
+                                "description": "The list of subnets to connect to in the client virtual private cloud (VPC). AWS creates elastic network interfaces inside these subnets. Client applications use elastic network interfaces to produce and consume data. Client subnets can't be in Availability Zone us-east-1e.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "InstanceType": {
+                                "description": "The type of Amazon EC2 instances to use for Kafka brokers. The following instance types are allowed: kafka.m5.large, kafka.m5.xlarge, kafka.m5.2xlarge,\nkafka.m5.4xlarge, kafka.m5.12xlarge, and kafka.m5.24xlarge.",
+                                "maxLength": 32,
+                                "minLength": 5,
+                                "type": "string"
+                            },
+                            "SecurityGroups": {
+                                "description": "The AWS security groups to associate with the elastic network interfaces in order to specify who can connect to and communicate with the Amazon MSK cluster.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "StorageInfo": {
+                                "description": "Contains information about storage volumes attached to MSK broker nodes.",
+                                "properties": {
+                                    "EbsStorageInfo": {
+                                        "description": "EBS volume information.",
+                                        "properties": {
+                                            "VolumeSize": {
+                                                "description": "The size in GiB of the EBS volume for the data drive on each broker node.",
+                                                "maximum": 16384,
+                                                "minimum": 1,
+                                                "type": "integer"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "required": [
+                            "ClientSubnets",
+                            "InstanceType"
+                        ],
+                        "type": "object"
+                    },
+                    "ClusterName": {
+                        "description": "The name of the cluster.",
+                        "maxLength": 64,
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "EncryptionInfo": {
+                        "description": "Includes all encryption-related information.",
+                        "properties": {
+                            "EncryptionAtRest": {
+                                "description": "The data volume encryption details.",
+                                "properties": {
+                                    "DataVolumeKMSKeyId": {
+                                        "description": "The AWS KMS key used for data encryption.",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "DataVolumeKMSKeyId"
+                                ],
+                                "type": "object"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "EnhancedMonitoring": {
+                        "description": "Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER, and PER_TOPIC_PER_BROKER.",
+                        "enum": [
+                            "DEFAULT",
+                            "PER_BROKER",
+                            "PER_TOPIC_PER_BROKER"
+                        ],
+                        "type": "string"
+                    },
+                    "KafkaVersion": {
+                        "description": "The version of Apache Kafka.",
+                        "maxLength": 128,
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "NumberOfBrokerNodes": {
+                        "description": "The number of Kafka broker nodes in the Amazon MSK cluster.",
+                        "maximum": 15,
+                        "minimum": 1,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "BrokerNodeGroupInfo",
+                    "KafkaVersion",
+                    "NumberOfBrokerNodes",
+                    "ClusterName"
+                ],
+                "type": "object"
+            },
+            "CreateClusterResponse": {
+                "properties": {
+                    "ClusterArn": {
+                        "description": "The Amazon Resource Name (ARN) of the cluster.",
+                        "type": "string"
+                    },
+                    "ClusterName": {
+                        "description": "The name of the MSK cluster.",
+                        "type": "string"
+                    },
+                    "State": {
+                        "description": "The state of the cluster. The possible states are CREATING, ACTIVE, and FAILED.",
+                        "enum": [
+                            "ACTIVE",
+                            "CREATING",
+                            "DELETING",
+                            "FAILED"
+                        ],
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DeleteClusterRequest": {
+                "properties": {},
+                "type": "object"
+            },
+            "DeleteClusterResponse": {
+                "properties": {
+                    "ClusterArn": {
+                        "description": "The Amazon Resource Name (ARN) of the cluster.",
+                        "type": "string"
+                    },
+                    "State": {
+                        "description": "The state of the cluster. The possible states are CREATING, ACTIVE, and FAILED.",
+                        "enum": [
+                            "ACTIVE",
+                            "CREATING",
+                            "DELETING",
+                            "FAILED"
+                        ],
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DescribeClusterRequest": {
+                "properties": {},
+                "type": "object"
+            },
+            "DescribeClusterResponse": {
+                "properties": {
+                    "ClusterInfo": {
+                        "description": "The cluster information.",
+                        "properties": {
+                            "BrokerNodeGroupInfo": {
+                                "description": "Information about the broker nodes.",
+                                "properties": {
+                                    "BrokerAZDistribution": {
+                                        "description": "The distribution of broker nodes across Availability Zones.",
+                                        "enum": [
+                                            "DEFAULT"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "ClientSubnets": {
+                                        "description": "The list of subnets to connect to in the client virtual private cloud (VPC). AWS creates elastic network interfaces inside these subnets. Client applications use elastic network interfaces to produce and consume data. Client subnets can't be in Availability Zone us-east-1e.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "InstanceType": {
+                                        "description": "The type of Amazon EC2 instances to use for Kafka brokers. The following instance types are allowed: kafka.m5.large, kafka.m5.xlarge, kafka.m5.2xlarge,\nkafka.m5.4xlarge, kafka.m5.12xlarge, and kafka.m5.24xlarge.",
+                                        "maxLength": 32,
+                                        "minLength": 5,
+                                        "type": "string"
+                                    },
+                                    "SecurityGroups": {
+                                        "description": "The AWS security groups to associate with the elastic network interfaces in order to specify who can connect to and communicate with the Amazon MSK cluster.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "StorageInfo": {
+                                        "description": "Contains information about storage volumes attached to MSK broker nodes.",
+                                        "properties": {
+                                            "EbsStorageInfo": {
+                                                "description": "EBS volume information.",
+                                                "properties": {
+                                                    "VolumeSize": {
+                                                        "description": "The size in GiB of the EBS volume for the data drive on each broker node.",
+                                                        "maximum": 16384,
+                                                        "minimum": 1,
+                                                        "type": "integer"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "required": [
+                                    "ClientSubnets",
+                                    "InstanceType"
+                                ],
+                                "type": "object"
+                            },
+                            "ClusterArn": {
+                                "description": "The Amazon Resource Name (ARN) that uniquely identifies the cluster.",
+                                "type": "string"
+                            },
+                            "ClusterName": {
+                                "description": "The name of the cluster.",
+                                "type": "string"
+                            },
+                            "CreationTime": {
+                                "description": "The time when the cluster was created.",
+                                "format": "date-time",
+                                "type": "string"
+                            },
+                            "CurrentBrokerSoftwareInfo": {
+                                "description": "Information about the version of software currently deployed on the Kafka brokers in the cluster.",
+                                "properties": {
+                                    "ConfigurationArn": {
+                                        "description": "The Amazon Resource Name (ARN) of the configuration used for the cluster.",
+                                        "type": "string"
+                                    },
+                                    "ConfigurationRevision": {
+                                        "description": "The revision of the configuration to use.",
+                                        "type": "string"
+                                    },
+                                    "KafkaVersion": {
+                                        "description": "The version of Apache Kafka.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "CurrentVersion": {
+                                "description": "The current version of the MSK cluster.",
+                                "type": "string"
+                            },
+                            "EncryptionInfo": {
+                                "description": "Includes all encryption-related information.",
+                                "properties": {
+                                    "EncryptionAtRest": {
+                                        "description": "The data volume encryption details.",
+                                        "properties": {
+                                            "DataVolumeKMSKeyId": {
+                                                "description": "The AWS KMS key used for data encryption.",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "DataVolumeKMSKeyId"
+                                        ],
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "EnhancedMonitoring": {
+                                "description": "Specifies which metrics are gathered for the MSK cluster. This property has three possible values: DEFAULT, PER_BROKER, and PER_TOPIC_PER_BROKER.",
+                                "enum": [
+                                    "DEFAULT",
+                                    "PER_BROKER",
+                                    "PER_TOPIC_PER_BROKER"
+                                ],
+                                "type": "string"
+                            },
+                            "NumberOfBrokerNodes": {
+                                "description": "The number of Kafka broker nodes in the cluster.",
+                                "type": "integer"
+                            },
+                            "State": {
+                                "description": "The state of the cluster. The possible states are CREATING, ACTIVE, and FAILED.",
+                                "enum": [
+                                    "ACTIVE",
+                                    "CREATING",
+                                    "DELETING",
+                                    "FAILED"
+                                ],
+                                "type": "string"
+                            },
+                            "ZookeeperConnectString": {
+                                "description": "The connection string to use to connect to the Apache ZooKeeper cluster.",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "EBSStorageInfo": {
+                "description": "Contains information about the EBS storage volumes attached to Kafka broker nodes.",
+                "properties": {
+                    "VolumeSize": {
+                        "description": "The size in GiB of the EBS volume for the data drive on each broker node.",
+                        "maximum": 16384,
+                        "minimum": 1,
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "EncryptionAtRest": {
+                "description": "The data volume encryption details.",
+                "properties": {
+                    "DataVolumeKMSKeyId": {
+                        "description": "The AWS KMS key used for data encryption.",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "DataVolumeKMSKeyId"
+                ],
+                "type": "object"
+            },
+            "EncryptionInfo": {
+                "description": "Includes encryption-related information, such as the AWS KMS key used for encrypting data at rest.",
+                "properties": {
+                    "EncryptionAtRest": {
+                        "description": "The data volume encryption details.",
+                        "properties": {
+                            "DataVolumeKMSKeyId": {
+                                "description": "The AWS KMS key used for data encryption.",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "DataVolumeKMSKeyId"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "EnhancedMonitoring": {
+                "description": "Specifies which metrics are gathered for the MSK cluster. This property has three possible values: DEFAULT, PER_BROKER, and PER_TOPIC_PER_BROKER.",
+                "enum": [
+                    "DEFAULT",
+                    "PER_BROKER",
+                    "PER_TOPIC_PER_BROKER"
+                ],
+                "type": "string"
+            },
+            "ForbiddenException": {},
+            "GetBootstrapBrokersRequest": {
+                "properties": {},
+                "type": "object"
+            },
+            "GetBootstrapBrokersResponse": {
+                "properties": {
+                    "BootstrapBrokerString": {
+                        "description": "A string containing one or more hostname:port pairs.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "InternalServerErrorException": {},
+            "ListClustersRequest": {
+                "properties": {},
+                "type": "object"
+            },
+            "ListClustersResponse": {
+                "properties": {
+                    "ClusterInfoList": {
+                        "description": "Information on each of the MSK clusters in the response.",
+                        "items": {
+                            "description": "Returns information about a cluster.",
+                            "properties": {
+                                "BrokerNodeGroupInfo": {
+                                    "description": "Information about the broker nodes.",
+                                    "properties": {
+                                        "BrokerAZDistribution": {
+                                            "description": "The distribution of broker nodes across Availability Zones.",
+                                            "enum": [
+                                                "DEFAULT"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "ClientSubnets": {
+                                            "description": "The list of subnets to connect to in the client virtual private cloud (VPC). AWS creates elastic network interfaces inside these subnets. Client applications use elastic network interfaces to produce and consume data. Client subnets can't be in Availability Zone us-east-1e.",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "type": "array"
+                                        },
+                                        "InstanceType": {
+                                            "description": "The type of Amazon EC2 instances to use for Kafka brokers. The following instance types are allowed: kafka.m5.large, kafka.m5.xlarge, kafka.m5.2xlarge,\nkafka.m5.4xlarge, kafka.m5.12xlarge, and kafka.m5.24xlarge.",
+                                            "maxLength": 32,
+                                            "minLength": 5,
+                                            "type": "string"
+                                        },
+                                        "SecurityGroups": {
+                                            "description": "The AWS security groups to associate with the elastic network interfaces in order to specify who can connect to and communicate with the Amazon MSK cluster.",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "type": "array"
+                                        },
+                                        "StorageInfo": {
+                                            "description": "Contains information about storage volumes attached to MSK broker nodes.",
+                                            "properties": {
+                                                "EbsStorageInfo": {
+                                                    "description": "EBS volume information.",
+                                                    "properties": {
+                                                        "VolumeSize": {
+                                                            "description": "The size in GiB of the EBS volume for the data drive on each broker node.",
+                                                            "maximum": 16384,
+                                                            "minimum": 1,
+                                                            "type": "integer"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "required": [
+                                        "ClientSubnets",
+                                        "InstanceType"
+                                    ],
+                                    "type": "object"
+                                },
+                                "ClusterArn": {
+                                    "description": "The Amazon Resource Name (ARN) that uniquely identifies the cluster.",
+                                    "type": "string"
+                                },
+                                "ClusterName": {
+                                    "description": "The name of the cluster.",
+                                    "type": "string"
+                                },
+                                "CreationTime": {
+                                    "description": "The time when the cluster was created.",
+                                    "format": "date-time",
+                                    "type": "string"
+                                },
+                                "CurrentBrokerSoftwareInfo": {
+                                    "description": "Information about the version of software currently deployed on the Kafka brokers in the cluster.",
+                                    "properties": {
+                                        "ConfigurationArn": {
+                                            "description": "The Amazon Resource Name (ARN) of the configuration used for the cluster.",
+                                            "type": "string"
+                                        },
+                                        "ConfigurationRevision": {
+                                            "description": "The revision of the configuration to use.",
+                                            "type": "string"
+                                        },
+                                        "KafkaVersion": {
+                                            "description": "The version of Apache Kafka.",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "CurrentVersion": {
+                                    "description": "The current version of the MSK cluster.",
+                                    "type": "string"
+                                },
+                                "EncryptionInfo": {
+                                    "description": "Includes all encryption-related information.",
+                                    "properties": {
+                                        "EncryptionAtRest": {
+                                            "description": "The data volume encryption details.",
+                                            "properties": {
+                                                "DataVolumeKMSKeyId": {
+                                                    "description": "The AWS KMS key used for data encryption.",
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "DataVolumeKMSKeyId"
+                                            ],
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "EnhancedMonitoring": {
+                                    "description": "Specifies which metrics are gathered for the MSK cluster. This property has three possible values: DEFAULT, PER_BROKER, and PER_TOPIC_PER_BROKER.",
+                                    "enum": [
+                                        "DEFAULT",
+                                        "PER_BROKER",
+                                        "PER_TOPIC_PER_BROKER"
+                                    ],
+                                    "type": "string"
+                                },
+                                "NumberOfBrokerNodes": {
+                                    "description": "The number of Kafka broker nodes in the cluster.",
+                                    "type": "integer"
+                                },
+                                "State": {
+                                    "description": "The state of the cluster. The possible states are CREATING, ACTIVE, and FAILED.",
+                                    "enum": [
+                                        "ACTIVE",
+                                        "CREATING",
+                                        "DELETING",
+                                        "FAILED"
+                                    ],
+                                    "type": "string"
+                                },
+                                "ZookeeperConnectString": {
+                                    "description": "The connection string to use to connect to the Apache ZooKeeper cluster.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "NextToken": {
+                        "description": "The paginated results marker. When the result of a ListClusters operation is truncated, the call returns NextToken in the response. \n To get another batch of clusters, provide this token in your next request.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ListNodesRequest": {
+                "properties": {},
+                "type": "object"
+            },
+            "ListNodesResponse": {
+                "properties": {
+                    "NextToken": {
+                        "description": "The paginated results marker. When the result of a ListNodes operation is truncated, the call returns NextToken in the response. \n To get another batch of nodes, provide this token in your next request.",
+                        "type": "string"
+                    },
+                    "NodeInfoList": {
+                        "description": "List containing a NodeInfo object.",
+                        "items": {
+                            "description": "The node information object.",
+                            "properties": {
+                                "AddedToClusterTime": {
+                                    "description": "The start time.",
+                                    "type": "string"
+                                },
+                                "BrokerNodeInfo": {
+                                    "description": "The broker node info.",
+                                    "properties": {
+                                        "AttachedENIId": {
+                                            "description": "The attached elastic network interface of the broker.",
+                                            "type": "string"
+                                        },
+                                        "BrokerId": {
+                                            "description": "The ID of the broker.",
+                                            "format": "double",
+                                            "type": "number"
+                                        },
+                                        "ClientSubnet": {
+                                            "description": "The client subnet to which this broker node belongs.",
+                                            "type": "string"
+                                        },
+                                        "ClientVpcIpAddress": {
+                                            "description": "The virtual private cloud (VPC) of the client.",
+                                            "type": "string"
+                                        },
+                                        "CurrentBrokerSoftwareInfo": {
+                                            "description": "Information about the version of software currently deployed on the Kafka brokers in the cluster.",
+                                            "properties": {
+                                                "ConfigurationArn": {
+                                                    "description": "The Amazon Resource Name (ARN) of the configuration used for the cluster.",
+                                                    "type": "string"
+                                                },
+                                                "ConfigurationRevision": {
+                                                    "description": "The revision of the configuration to use.",
+                                                    "type": "string"
+                                                },
+                                                "KafkaVersion": {
+                                                    "description": "The version of Apache Kafka.",
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "InstanceType": {
+                                    "description": "The instance type.",
+                                    "type": "string"
+                                },
+                                "NodeARN": {
+                                    "description": "The Amazon Resource Name (ARN) of the node.",
+                                    "type": "string"
+                                },
+                                "NodeType": {
+                                    "description": "The node type.",
+                                    "enum": [
+                                        "BROKER"
+                                    ],
+                                    "type": "string"
+                                },
+                                "ZookeeperNodeInfo": {
+                                    "description": "The ZookeeperNodeInfo.",
+                                    "properties": {
+                                        "AttachedENIId": {
+                                            "description": "The attached elastic network interface of the broker.",
+                                            "type": "string"
+                                        },
+                                        "ClientVpcIpAddress": {
+                                            "description": "The virtual private cloud (VPC) IP address of the client.",
+                                            "type": "string"
+                                        },
+                                        "ZookeeperId": {
+                                            "description": "The role-specific ID for Zookeeper.",
+                                            "format": "double",
+                                            "type": "number"
+                                        },
+                                        "ZookeeperVersion": {
+                                            "description": "The version of Zookeeper.",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    }
+                },
+                "type": "object"
+            },
+            "MaxResults": {
+                "maximum": 100,
+                "minimum": 1,
+                "type": "integer"
+            },
+            "NodeInfo": {
+                "description": "The node information object.",
+                "properties": {
+                    "AddedToClusterTime": {
+                        "description": "The start time.",
+                        "type": "string"
+                    },
+                    "BrokerNodeInfo": {
+                        "description": "The broker node info.",
+                        "properties": {
+                            "AttachedENIId": {
+                                "description": "The attached elastic network interface of the broker.",
+                                "type": "string"
+                            },
+                            "BrokerId": {
+                                "description": "The ID of the broker.",
+                                "format": "double",
+                                "type": "number"
+                            },
+                            "ClientSubnet": {
+                                "description": "The client subnet to which this broker node belongs.",
+                                "type": "string"
+                            },
+                            "ClientVpcIpAddress": {
+                                "description": "The virtual private cloud (VPC) of the client.",
+                                "type": "string"
+                            },
+                            "CurrentBrokerSoftwareInfo": {
+                                "description": "Information about the version of software currently deployed on the Kafka brokers in the cluster.",
+                                "properties": {
+                                    "ConfigurationArn": {
+                                        "description": "The Amazon Resource Name (ARN) of the configuration used for the cluster.",
+                                        "type": "string"
+                                    },
+                                    "ConfigurationRevision": {
+                                        "description": "The revision of the configuration to use.",
+                                        "type": "string"
+                                    },
+                                    "KafkaVersion": {
+                                        "description": "The version of Apache Kafka.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "InstanceType": {
+                        "description": "The instance type.",
+                        "type": "string"
+                    },
+                    "NodeARN": {
+                        "description": "The Amazon Resource Name (ARN) of the node.",
+                        "type": "string"
+                    },
+                    "NodeType": {
+                        "description": "The node type.",
+                        "enum": [
+                            "BROKER"
+                        ],
+                        "type": "string"
+                    },
+                    "ZookeeperNodeInfo": {
+                        "description": "The ZookeeperNodeInfo.",
+                        "properties": {
+                            "AttachedENIId": {
+                                "description": "The attached elastic network interface of the broker.",
+                                "type": "string"
+                            },
+                            "ClientVpcIpAddress": {
+                                "description": "The virtual private cloud (VPC) IP address of the client.",
+                                "type": "string"
+                            },
+                            "ZookeeperId": {
+                                "description": "The role-specific ID for Zookeeper.",
+                                "format": "double",
+                                "type": "number"
+                            },
+                            "ZookeeperVersion": {
+                                "description": "The version of Zookeeper.",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "NodeType": {
+                "description": "The broker or Zookeeper node.",
+                "enum": [
+                    "BROKER"
+                ],
+                "type": "string"
+            },
+            "NotFoundException": {},
+            "ServiceUnavailableException": {},
+            "StorageInfo": {
+                "description": "Contains information about storage volumes attached to MSK broker nodes.",
+                "properties": {
+                    "EbsStorageInfo": {
+                        "description": "EBS volume information.",
+                        "properties": {
+                            "VolumeSize": {
+                                "description": "The size in GiB of the EBS volume for the data drive on each broker node.",
+                                "maximum": 16384,
+                                "minimum": 1,
+                                "type": "integer"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "TooManyRequestsException": {},
+            "UnauthorizedException": {},
+            "ZookeeperNodeInfo": {
+                "description": "Zookeeper node information.",
+                "properties": {
+                    "AttachedENIId": {
+                        "description": "The attached elastic network interface of the broker.",
+                        "type": "string"
+                    },
+                    "ClientVpcIpAddress": {
+                        "description": "The virtual private cloud (VPC) IP address of the client.",
+                        "type": "string"
+                    },
+                    "ZookeeperId": {
+                        "description": "The role-specific ID for Zookeeper.",
+                        "format": "double",
+                        "type": "number"
+                    },
+                    "ZookeeperVersion": {
+                        "description": "The version of Zookeeper.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "__double": {
+                "format": "double",
+                "type": "number"
+            },
+            "__integer": {
+                "type": "integer"
+            },
+            "__integerMin1Max15": {
+                "maximum": 15,
+                "minimum": 1,
+                "type": "integer"
+            },
+            "__integerMin1Max16384": {
+                "maximum": 16384,
+                "minimum": 1,
+                "type": "integer"
+            },
+            "__listOfClusterInfo": {
+                "items": {
+                    "description": "Returns information about a cluster.",
+                    "properties": {
+                        "BrokerNodeGroupInfo": {
+                            "description": "Information about the broker nodes.",
+                            "properties": {
+                                "BrokerAZDistribution": {
+                                    "description": "The distribution of broker nodes across Availability Zones.",
+                                    "enum": [
+                                        "DEFAULT"
+                                    ],
+                                    "type": "string"
+                                },
+                                "ClientSubnets": {
+                                    "description": "The list of subnets to connect to in the client virtual private cloud (VPC). AWS creates elastic network interfaces inside these subnets. Client applications use elastic network interfaces to produce and consume data. Client subnets can't be in Availability Zone us-east-1e.",
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array"
+                                },
+                                "InstanceType": {
+                                    "description": "The type of Amazon EC2 instances to use for Kafka brokers. The following instance types are allowed: kafka.m5.large, kafka.m5.xlarge, kafka.m5.2xlarge,\nkafka.m5.4xlarge, kafka.m5.12xlarge, and kafka.m5.24xlarge.",
+                                    "maxLength": 32,
+                                    "minLength": 5,
+                                    "type": "string"
+                                },
+                                "SecurityGroups": {
+                                    "description": "The AWS security groups to associate with the elastic network interfaces in order to specify who can connect to and communicate with the Amazon MSK cluster.",
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array"
+                                },
+                                "StorageInfo": {
+                                    "description": "Contains information about storage volumes attached to MSK broker nodes.",
+                                    "properties": {
+                                        "EbsStorageInfo": {
+                                            "description": "EBS volume information.",
+                                            "properties": {
+                                                "VolumeSize": {
+                                                    "description": "The size in GiB of the EBS volume for the data drive on each broker node.",
+                                                    "maximum": 16384,
+                                                    "minimum": 1,
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "required": [
+                                "ClientSubnets",
+                                "InstanceType"
+                            ],
+                            "type": "object"
+                        },
+                        "ClusterArn": {
+                            "description": "The Amazon Resource Name (ARN) that uniquely identifies the cluster.",
+                            "type": "string"
+                        },
+                        "ClusterName": {
+                            "description": "The name of the cluster.",
+                            "type": "string"
+                        },
+                        "CreationTime": {
+                            "description": "The time when the cluster was created.",
+                            "format": "date-time",
+                            "type": "string"
+                        },
+                        "CurrentBrokerSoftwareInfo": {
+                            "description": "Information about the version of software currently deployed on the Kafka brokers in the cluster.",
+                            "properties": {
+                                "ConfigurationArn": {
+                                    "description": "The Amazon Resource Name (ARN) of the configuration used for the cluster.",
+                                    "type": "string"
+                                },
+                                "ConfigurationRevision": {
+                                    "description": "The revision of the configuration to use.",
+                                    "type": "string"
+                                },
+                                "KafkaVersion": {
+                                    "description": "The version of Apache Kafka.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "CurrentVersion": {
+                            "description": "The current version of the MSK cluster.",
+                            "type": "string"
+                        },
+                        "EncryptionInfo": {
+                            "description": "Includes all encryption-related information.",
+                            "properties": {
+                                "EncryptionAtRest": {
+                                    "description": "The data volume encryption details.",
+                                    "properties": {
+                                        "DataVolumeKMSKeyId": {
+                                            "description": "The AWS KMS key used for data encryption.",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "DataVolumeKMSKeyId"
+                                    ],
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "EnhancedMonitoring": {
+                            "description": "Specifies which metrics are gathered for the MSK cluster. This property has three possible values: DEFAULT, PER_BROKER, and PER_TOPIC_PER_BROKER.",
+                            "enum": [
+                                "DEFAULT",
+                                "PER_BROKER",
+                                "PER_TOPIC_PER_BROKER"
+                            ],
+                            "type": "string"
+                        },
+                        "NumberOfBrokerNodes": {
+                            "description": "The number of Kafka broker nodes in the cluster.",
+                            "type": "integer"
+                        },
+                        "State": {
+                            "description": "The state of the cluster. The possible states are CREATING, ACTIVE, and FAILED.",
+                            "enum": [
+                                "ACTIVE",
+                                "CREATING",
+                                "DELETING",
+                                "FAILED"
+                            ],
+                            "type": "string"
+                        },
+                        "ZookeeperConnectString": {
+                            "description": "The connection string to use to connect to the Apache ZooKeeper cluster.",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "__listOfNodeInfo": {
+                "items": {
+                    "description": "The node information object.",
+                    "properties": {
+                        "AddedToClusterTime": {
+                            "description": "The start time.",
+                            "type": "string"
+                        },
+                        "BrokerNodeInfo": {
+                            "description": "The broker node info.",
+                            "properties": {
+                                "AttachedENIId": {
+                                    "description": "The attached elastic network interface of the broker.",
+                                    "type": "string"
+                                },
+                                "BrokerId": {
+                                    "description": "The ID of the broker.",
+                                    "format": "double",
+                                    "type": "number"
+                                },
+                                "ClientSubnet": {
+                                    "description": "The client subnet to which this broker node belongs.",
+                                    "type": "string"
+                                },
+                                "ClientVpcIpAddress": {
+                                    "description": "The virtual private cloud (VPC) of the client.",
+                                    "type": "string"
+                                },
+                                "CurrentBrokerSoftwareInfo": {
+                                    "description": "Information about the version of software currently deployed on the Kafka brokers in the cluster.",
+                                    "properties": {
+                                        "ConfigurationArn": {
+                                            "description": "The Amazon Resource Name (ARN) of the configuration used for the cluster.",
+                                            "type": "string"
+                                        },
+                                        "ConfigurationRevision": {
+                                            "description": "The revision of the configuration to use.",
+                                            "type": "string"
+                                        },
+                                        "KafkaVersion": {
+                                            "description": "The version of Apache Kafka.",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "InstanceType": {
+                            "description": "The instance type.",
+                            "type": "string"
+                        },
+                        "NodeARN": {
+                            "description": "The Amazon Resource Name (ARN) of the node.",
+                            "type": "string"
+                        },
+                        "NodeType": {
+                            "description": "The node type.",
+                            "enum": [
+                                "BROKER"
+                            ],
+                            "type": "string"
+                        },
+                        "ZookeeperNodeInfo": {
+                            "description": "The ZookeeperNodeInfo.",
+                            "properties": {
+                                "AttachedENIId": {
+                                    "description": "The attached elastic network interface of the broker.",
+                                    "type": "string"
+                                },
+                                "ClientVpcIpAddress": {
+                                    "description": "The virtual private cloud (VPC) IP address of the client.",
+                                    "type": "string"
+                                },
+                                "ZookeeperId": {
+                                    "description": "The role-specific ID for Zookeeper.",
+                                    "format": "double",
+                                    "type": "number"
+                                },
+                                "ZookeeperVersion": {
+                                    "description": "The version of Zookeeper.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "__listOf__string": {
+                "items": {
+                    "type": "string"
+                },
+                "type": "array"
+            },
+            "__string": {
+                "type": "string"
+            },
+            "__stringMin1Max128": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+            },
+            "__stringMin1Max64": {
+                "maxLength": 64,
+                "minLength": 1,
+                "type": "string"
+            },
+            "__stringMin5Max32": {
+                "maxLength": 32,
+                "minLength": 5,
+                "type": "string"
+            },
+            "__timestampIso8601": {
+                "format": "date-time",
+                "type": "string"
+            }
+        },
+        "parameters": {
+            "Action": {
+                "in": "query",
+                "name": "Action",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "Version": {
+                "in": "query",
+                "name": "Version",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "X-Amz-Algorithm": {
+                "in": "header",
+                "name": "X-Amz-Algorithm",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "X-Amz-Content-Sha256": {
+                "in": "header",
+                "name": "X-Amz-Content-Sha256",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "X-Amz-Credential": {
+                "in": "header",
+                "name": "X-Amz-Credential",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "X-Amz-Date": {
+                "in": "header",
+                "name": "X-Amz-Date",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "X-Amz-Security-Token": {
+                "in": "header",
+                "name": "X-Amz-Security-Token",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "X-Amz-Signature": {
+                "in": "header",
+                "name": "X-Amz-Signature",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "X-Amz-SignedHeaders": {
+                "in": "header",
+                "name": "X-Amz-SignedHeaders",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                }
+            }
+        },
+        "requestBodies": {
+            "ListClustersBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {},
+                            "type": "object"
+                        }
+                    }
+                },
+                "required": true
+            }
+        },
+        "securitySchemes": {
+            "hmac": {
+                "description": "Amazon Signature authorization v4",
+                "in": "header",
+                "name": "Authorization",
+                "type": "apiKey",
+                "x-amazon-apigateway-authtype": "awsSigv4"
+            }
+        }
+    }
+}

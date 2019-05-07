@@ -1,0 +1,153 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "BrokerNodeGroupInfo": {
+                    "description": "Information about the broker nodes in the cluster.",
+                    "properties": {
+                        "BrokerAZDistribution": {
+                            "description": "The distribution of broker nodes across Availability Zones.",
+                            "enum": [
+                                "DEFAULT"
+                            ],
+                            "type": "string"
+                        },
+                        "ClientSubnets": {
+                            "description": "The list of subnets to connect to in the client virtual private cloud (VPC). AWS creates elastic network interfaces inside these subnets. Client applications use elastic network interfaces to produce and consume data. Client subnets can't be in Availability Zone us-east-1e.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "InstanceType": {
+                            "description": "The type of Amazon EC2 instances to use for Kafka brokers. The following instance types are allowed: kafka.m5.large, kafka.m5.xlarge, kafka.m5.2xlarge,\nkafka.m5.4xlarge, kafka.m5.12xlarge, and kafka.m5.24xlarge.",
+                            "maxLength": 32,
+                            "minLength": 5,
+                            "type": "string"
+                        },
+                        "SecurityGroups": {
+                            "description": "The AWS security groups to associate with the elastic network interfaces in order to specify who can connect to and communicate with the Amazon MSK cluster.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "StorageInfo": {
+                            "description": "Contains information about storage volumes attached to MSK broker nodes.",
+                            "properties": {
+                                "EbsStorageInfo": {
+                                    "description": "EBS volume information.",
+                                    "properties": {
+                                        "VolumeSize": {
+                                            "description": "The size in GiB of the EBS volume for the data drive on each broker node.",
+                                            "maximum": 16384,
+                                            "minimum": 1,
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "ClientSubnets",
+                        "InstanceType"
+                    ],
+                    "type": "object"
+                },
+                "ClusterName": {
+                    "description": "The name of the cluster.",
+                    "maxLength": 64,
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "EncryptionInfo": {
+                    "description": "Includes all encryption-related information.",
+                    "properties": {
+                        "EncryptionAtRest": {
+                            "description": "The data volume encryption details.",
+                            "properties": {
+                                "DataVolumeKMSKeyId": {
+                                    "description": "The AWS KMS key used for data encryption.",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "DataVolumeKMSKeyId"
+                            ],
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "EnhancedMonitoring": {
+                    "description": "Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER, and PER_TOPIC_PER_BROKER.",
+                    "enum": [
+                        "DEFAULT",
+                        "PER_BROKER",
+                        "PER_TOPIC_PER_BROKER"
+                    ],
+                    "type": "string"
+                },
+                "KafkaVersion": {
+                    "description": "The version of Apache Kafka.",
+                    "maxLength": 128,
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "NumberOfBrokerNodes": {
+                    "description": "The number of Kafka broker nodes in the Amazon MSK cluster.",
+                    "maximum": 15,
+                    "minimum": 1,
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "BrokerNodeGroupInfo",
+                "KafkaVersion",
+                "NumberOfBrokerNodes",
+                "ClusterName"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}
